@@ -59,8 +59,8 @@ namespace TfsInteraction
 				{ "CWO", -1 }
 			};
 
-            TrelloAuthorization.Default.AppKey = "63e92e7f6a1d8023da9641a9c80f689d";
-			TrelloAuthorization.Default.UserToken = "d0fe93d4029e527715c6391f426e46ea016dcf478cf8ab5ddd80e41c0c53cf69";
+            TrelloAuthorization.Default.AppKey = "<app key>";
+			TrelloAuthorization.Default.UserToken = "<user token>";
 			var serializer = new ManateeSerializer();
 			TrelloConfiguration.Serializer = serializer;
 			TrelloConfiguration.Deserializer = serializer;
@@ -99,17 +99,17 @@ namespace TfsInteraction
 
         static void InsertTfsItem(Task task)
 		{
-			TfsTeamProjectCollection coll = new TfsTeamProjectCollection(new Uri("http://sqlbuvsts01:8080/Main"), CredentialCache.DefaultCredentials);
+			TfsTeamProjectCollection coll = new TfsTeamProjectCollection(new Uri("<your project URI>"), CredentialCache.DefaultCredentials);
 			coll.EnsureAuthenticated();
 
 			WorkItemStore wis = new WorkItemStore(coll);
-			Project sqlServerProject = wis.Projects["SQL Server"];
+			Project sqlServerProject = wis.Projects["<your project>"];
 			WorkItemType taskType = sqlServerProject.WorkItemTypes["Task"];
 			WorkItemLinkTypeEnd parentLinkTypeEnd = wis.WorkItemLinkTypes.LinkTypeEnds["Parent"];
 
 			WorkItem wi = new WorkItem(taskType);
-			wi.AreaPath = @"SQL Server\SQL Azure\Workload Insights";
-			wi.IterationPath = @"SQL Server\Workspaces\DS\MDCS\Workload Experience KPI\Sprint 2016-5";
+			wi.AreaPath = @"<your\area\path>";
+			wi.IterationPath = @"<your\iteration\path>";
 			FieldCollection fc = wi.Fields;
 			fc["Issue Type"].Value = "Development";
 			fc["Issue Subtype"].Value = "Code Implementation";
